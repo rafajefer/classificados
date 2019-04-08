@@ -4,3 +4,15 @@
     <p>E mais de 2 usuários cadastrados.</p>
   </div>
 </div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4">
+			<h4>Pesquisa Avançadas</h4>
+		</div>
+		<div class="col-sm-8">			
+			<h4>Últimos Anúncios</h4>
+		</div>
+	</div>
+
+</div>
