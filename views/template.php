@@ -24,7 +24,7 @@
                     <a class="nav-link" href="<?php echo BASE_URL;?>anuncios">Meus Anúncios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo BASE_URL;?>login/sair">Sair</a>
+                    <a class="nav-link" href="<?php echo BASE_URL;?>logout">Sair</a>
                 </li>
                 <?php else: ?>
                 <li class="nav-item <?php  ?>">
