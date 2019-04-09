@@ -1,6 +1,11 @@
 $(function(){
 
+	/* Carrega dados no modal editar anuncio com ajax */
+	$('.modal_ajax').bind('click', function(e) {
+		//e.preventDefault();
 
+		console.log("ok");
+	});
 	/* 
 	//Exibe texto campo obrigatório no input nome
 	$("#form-register [name=nome]").bind('blur', function(){

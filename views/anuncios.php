@@ -30,7 +30,7 @@
 			        <td class="align-middle"><?php echo $anuncio['titulo']; ?></td>
 			        <td class="align-middle"><?php echo "R$". number_format($anuncio['valor'], 2, ",", "."); ?></td>
 			        <td width="167" class="align-middle">
-			        	<a href="<?php echo BASE_URL."anuncios/editar/".$anuncio['id'];?>" class="btn btn-sm btn-info" role="button" data-toggle="modal" data-target="#modalAnuncioEditar">Editar</a>
+			        	<a href="<?php echo BASE_URL."anuncios/editar/".$anuncio['id'];?>" class="btn btn-sm btn-info modal_ajax" role="button" data-toggle="modal" data-target="#modalAnuncioEditar">Editar</a>
 			        	<a href="<?php echo BASE_URL."anuncios/excluir/".$anuncio['id'];?>" class="btn btn-sm btn-danger"> Excluir</a>
 			        </td>
 			      </tr>

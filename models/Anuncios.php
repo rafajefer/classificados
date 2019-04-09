@@ -41,10 +41,15 @@ class Anuncios extends Model {
 	/* Excluir anuncio */
 	public function excluirAnuncios($id)
 	{
-		// Exclui imagens do anuncio
-		$this->excluirAnunciosImagens($id);
 
-		// Exclui o anuncio
+		// Verifica se foi encontrada imagens no anuncio
+		if($this->getImagensAnuncio($id)){
+
+			// Se foi encontrada imagens então exclui
+			$this->excluirAnunciosImagens($id);
+		}
+
+		// Em seguida exclui o anuncio
 		$sql = "DELETE FROM $this->table WHERE id = :id";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindValue(":id", $id, PDO::PARAM_INT);
@@ -53,48 +58,36 @@ class Anuncios extends Model {
 		if($stmt->rowCount() > 0) {
 			return true;
 		} else {
-			//return false;
-			echo "erro";
+			return false;
 		}
+
+		
 	}
 
 	public function excluirAnunciosImagens($id_anuncio)
 	{
-		//echo "<img src='/assets/images/anuncios/64be2b2cfa6df4cb8a01db46d3f66419.jpg'";
-
-
-		// Deleta imagem
+		// Busca imagens do banco
 		$imagens = $this->getImagensAnuncio($id_anuncio);
-		//$path = BASE_URL."assets/images/anuncios/";
-
-			$filename = '/caminho/para/arquivo.txt';
-
-			if (file_exists($filename)) {
-			    echo "O arquivo $filename existe";
-			} else {
-			    echo "O arquivo $filename não existe";
-			}
-
-		$path = "../../assets/images/anuncios/";
+			
+		// Encontra todas imagens relacionada com anuncio no diretório e excluir todas 
+		$path = "/home/ieatprof/public_html/classificados.ieatprofissionalizante.com.br/assets/images/anuncios/";
 		foreach ($imagens as $key => $value) {
 			$caminho = $path.$value['filename'];
-			//echo $caminho." <br />";
-			//echo "<img src='$caminho' /><br />";
-			//unlink($caminho);
-			
+			if (file_exists($caminho)) {
+			    unlink($caminho);
+			}			
 		}
-		// Detela imagem do banco de dados		
-		/*
+
+		// Em seguida detela imagem do banco de dados			
 		$sql = "DELETE FROM anuncios_imagens WHERE id_anuncio = :id_anuncio";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindValue(":id_anuncio", $id_anuncio);
 		$stmt->execute();
 		if($stmt->rowCount() > 0) {
-			echo "imagens apagada";
+			return true;
 		} else {
-			echo "Erro ao apagar imagem";
-		}
-		*/
+			return false;
+		}		
 	}
 	/* Busca todas as imagens do Anuncio via id_anuncio */
 	public function getImagensAnuncio($id_anuncio)
@@ -106,7 +99,7 @@ class Anuncios extends Model {
 		$stmt->execute();
 		if($stmt->rowCount() > 0){
 			return $stmt->fetchAll();
-		}
+		} 
 
 	}
 
