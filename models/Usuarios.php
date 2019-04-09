@@ -13,7 +13,14 @@ class Usuarios extends Model {
 		$stmt->execute();
 
 		if($stmt->rowCount() == 0) {
-			$this->insert($nome, $email, $senha, $tel);
+			if($this->insert($nome, $email, $senha, $tel)) {
+				$alert['msg'] = "<strong>Cadastro realizado com sucesso</strong>, $nome! Agora você pode acessar sua conta com seu e-mail e senha.";
+				$alert['color'] = "success";
+				$_SESSION['alert'] = $alert;
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			// E-mail existente
 			$_SESSION['msg']['emailExistente'] = "Este  usuário já existe! <a href='".BASE_URL."login' class='alert-link'>Faça login agora</a>";
@@ -36,6 +43,9 @@ class Usuarios extends Model {
 			$_SESSION['cLogin'] = $data['id'];
 			return true;
 		} else {
+			$alert['msg'] = "<strong>Usuário e/ou senha inválidos</strong>, tente novamente!";
+			$alert['color'] = "danger";
+			$_SESSION['alert'] = $alert;
 			return false;
 		}
 	}

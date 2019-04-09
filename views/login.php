@@ -1,9 +1,15 @@
-<div class="container mt-5">
+<div class="container mt-5" id="area-login">
 	<div class="row justify-content-center">
-		<div class="col- 6 col-sm-4 col-md-6 ">
-			<div class="alert alert-danger alert-dismissible fade show <?php echo (!empty($_SESSION['msg']))? '' : 'd-none';?>">
-		    	<button type="button" class="close" data-dismiss="alert">&times;</button>
-		    	Usuário e/ou Senha errados!		  	</div>	
+		<div class="col-6 col-sm-4 col-md-6 ">
+			
+			<?php 
+				if(!empty($_SESSION['alert'])) {
+					echo '<div class="alert alert-'.$_SESSION['alert']['color'].' alert-dismissible fade show">';
+		    		echo '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+		    		echo $_SESSION['alert']['msg'];
+		    		echo '</div>';
+				}
+			?>	
 			<div class="card">
 			  <div class="card-header">Login</div>
 			  <div class="card-body">
@@ -23,7 +29,6 @@
 				  </div>
 				  <button type="submit" class="btn btn-primary">Entrar</button>
 				</form>
-
 			  </div> 
 			  <div class="card-footer">Footer</div>
 			</div>

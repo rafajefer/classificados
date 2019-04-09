@@ -5,7 +5,7 @@
  	public function index()
  	{
  		$this->loadTemplate('login');
- 		unset($_SESSION['msg']);
+ 		unset($_SESSION['alert']);
  	}
 
  	public function verificar()
@@ -18,10 +18,10 @@
  			header("Location: ".BASE_URL);
  			exit;
  		} else {
- 			$_SESSION['msg'] = array('login');
  			header("Location: ".BASE_URL."login");
  			exit;
  		}
  	}
+
 
  }

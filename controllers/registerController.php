@@ -24,16 +24,15 @@ class registerController extends Controller {
 
 		if(!empty($nome) && !empty($email) && !empty($senha) && !empty($telefone)) {
 
-			$result = $user->cadastrar($nome, $email, $senha, $telefone);
-			//print_r($result);
-			if($result) {
-				header("Location: ".BASE_URL."register");
+			if($user->cadastrar($nome, $email, $senha, $telefone)) {
+				header("Location: ".BASE_URL."login");
 				exit;
 			}
-		} else {
-			header("Location: ".BASE_URL."register");
-			exit;
 		}
+		
+		header("Location: ".BASE_URL."register");
+		exit;
+		print_r($_SESSION);
 
 	}
 }

@@ -13,6 +13,11 @@ $(function(){
 		}
 	});
 	*/
+	$("#area-login alert .close").bind('click', function(){
+		$.ajax({
+			$("#teste").load("http://localhost/cursos/php/poo/mvc/classificados/login/limpasession");
+		});
+	});
 	$("#register2").bind('click', function(e){
 		e.preventDefault();
 
@@ -31,10 +36,11 @@ $(function(){
 				var novaURL = "http://localhost/cursos/php/poo/mvc/classificados/register/success";
 				$(window.document.location).attr('href', novaURL);
 			}
-			error:  function(){
+			
+			/*error:  function(){
 				var novaURL = "http://localhost/cursos/php/poo/mvc/classificados/register/error";
 				$(window.document.location).attr('href', novaURL);
-			}
+			}*/
 		});
 	});
 });
