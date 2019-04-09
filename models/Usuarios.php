@@ -23,6 +23,23 @@ class Usuarios extends Model {
 
 	}
 
+	public function login($email, $senha)
+	{
+		$sql = "SELECT id FROM $this->table WHERE email = :email AND senha = :senha";
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindValue(":email", $email, PDO::PARAM_STR);
+		$stmt->bindValue(":senha", md5($senha), PDO::PARAM_STR);
+		$stmt->execute();
+
+		if($stmt->rowCount() > 0) {
+			$data = $stmt->fetch();
+			$_SESSION['cLogin'] = $data['id'];
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	private function insert($nome, $email, $senha, $tel)
 	{
 		$sql = "INSERT INTO $this->table (nome, email, senha, telefone) VALUES(?,?,?,?)";
