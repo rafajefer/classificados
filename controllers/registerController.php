@@ -5,10 +5,11 @@ class registerController extends Controller {
 	public function index()
 	{
 
-		$data['title'] = "Cadastra -se - ";
+		$data['title'] = "Criar uma conta - ";
 		$data['active'] = "register";
 
 		$this->loadTemplate('register', $data);
+		unset($_SESSION['msg']['emailExistente']);
 	}
 
 	public function verificar()
@@ -24,15 +25,15 @@ class registerController extends Controller {
 		if(!empty($nome) && !empty($email) && !empty($senha) && !empty($telefone)) {
 
 			$result = $user->cadastrar($nome, $email, $senha, $telefone);
-
+			//print_r($result);
 			if($result) {
-				header("Location: ".BASE_URL);
+				header("Location: ".BASE_URL."register");
 				exit;
 			}
 		} else {
-			$data['error'] = true;
+			header("Location: ".BASE_URL."register");
+			exit;
 		}
-
 
 	}
 }

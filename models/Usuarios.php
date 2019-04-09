@@ -6,7 +6,8 @@ class Usuarios extends Model {
 
 	public function cadastrar($nome, $email, $senha, $tel) {
 		
-		$sql = "SELECT id FROM $this->table WHERE email = : email";
+		// Verifica se usuário existe
+		$sql = "SELECT id FROM $this->table WHERE email = :email";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindValue(":email", $email);
 		$stmt->execute();
@@ -15,7 +16,9 @@ class Usuarios extends Model {
 			$this->insert($nome, $email, $senha, $tel);
 		} else {
 			// E-mail existente
-			return false; 
+			$_SESSION['msg']['emailExistente'] = "Este  usuário já existe! <a href='".BASE_URL."login' class='alert-link'>Faça login agora</a>";
+				header("Location: ".BASE_URL."register");
+				exit;
 		}
 
 	}
@@ -31,8 +34,10 @@ class Usuarios extends Model {
 		$stmt->execute();
 
 		if($stmt->rowCount() > 0) {
+			$_SESSION['msg']['sucesso']['usuarioCadastro'] = "Cadastro confirmado com sucesso, $nome! Agora você já pode acessar sua conta com seu e-mail e senha.";
 			return true;
 		} else {
+			$_SESSION['msg']['erro']['usuarioNoCadastrado'] = "Falha no cadastrado do novo usuário, tente novamente mais tarde, ou envie um e-mail para rafa.jefer@gmail.com";
 			return false;
 		}
 	}

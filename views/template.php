@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title><?php echo (isset($titulo)) ? $titulo : ''; ?>Classificados</title>
+        <title><?php echo (isset($title)) ? $title : ''; ?>Classificados</title>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="description" content="Recriação do projeto classificados do bonieky em mvc">
