@@ -8,7 +8,7 @@
 					<a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#modalAnuncioAdicionar">Adicionar Anúncio</a>
 				</div>
 			</div>
-			<table class="table mt-3">
+			<table class="table mt-3 table-striped">
 			    <thead class="thead-dark">
 			      <tr>
 			        <th>Foto</th>
@@ -19,13 +19,19 @@
 			    </thead>
 			    <tbody>
 			    <?php foreach($anuncios as $anuncio): ?> 
-			      <tr>
-			        <td><img src="<?php echo BASE_URL."asssets/images/anuncios/".$anuncio['url']; ?>" /></td>
-			        <td><?php echo $anuncio['titulo']; ?></td>
-			        <td><?php echo "R$". number_format($anuncio['valor'], 2, ",", "."); ?></td>
-			        <td width="167">
+			      <tr >
+			        <td width="150">
+			        	<?php if(!empty($anuncio['url'])): ?>
+			        	<img src="<?php echo BASE_URL."assets/images/anuncios/".$anuncio['url']; ?>" height="50" />
+			        	<?php else: ?>
+			        	<img src="<?php echo BASE_URL."assets/images/anuncios/default.jpg"; ?>" height="50" />
+			        	<?php endif; ?>
+			        </td>
+			        <td class="align-middle"><?php echo $anuncio['titulo']; ?></td>
+			        <td class="align-middle"><?php echo "R$". number_format($anuncio['valor'], 2, ",", "."); ?></td>
+			        <td width="167" class="align-middle">
 			        	<a href="<?php echo BASE_URL."anuncios/editar/".$anuncio['id'];?>" class="btn btn-sm btn-info" role="button" data-toggle="modal" data-target="#modalAnuncioEditar">Editar</a>
-			        	<a href="<?php echo BASE_URL."anuncios/excluir/".$anuncio['id'];?>" class="btn btn-sm btn-danger" role="button" data-toggle="modal" data-target="#modalAnuncioExcluir"> Excluir</a>
+			        	<a href="<?php echo BASE_URL."anuncios/excluir/".$anuncio['id'];?>" class="btn btn-sm btn-danger"> Excluir</a>
 			        </td>
 			      </tr>
 			    <?php endforeach; ?>
@@ -55,7 +61,9 @@
 						<div class="form-group">
 						    <label for="categoria">Categoria:</label>
 						    <select name="categoria" class="form-control">
-						    	<option value="1">t</option>
+						    	<?php foreach ($categorias as $cat): ?>
+						    		<option value="<?php echo $cat['id'];?>"><?php echo $cat['nome']; ?></option>
+						    	<?php endforeach;?>
 						    </select>
 						</div>
 					</div>
