@@ -17,4 +17,11 @@ abstract class Controller {
 		extract($viewData);
 		require 'views/template.php';
 	}
+
+	protected function verificarSessao()
+	{
+		if(empty($_SESSION['cLogin'])) {
+			header("Location: ".BASE_URL);
+		}
+	}
 }

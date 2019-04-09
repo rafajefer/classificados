@@ -13,6 +13,7 @@ $(function(){
 		}
 	});
 	*/
+	
 	$("#area-login alert .close").bind('click', function(){
 		$.ajax({
 			$("#teste").load("http://localhost/cursos/php/poo/mvc/classificados/login/limpasession");
