@@ -58,4 +58,20 @@ class Usuarios extends Model {
 			return false;
 		}
 	}
+
+	
+	public function getNome()
+	{
+		$sql = "SELECT nome FROM $this->table WHERE id = :id";
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindValue(":id", $_SESSION['cLogin'], PDO::PARAM_INT);
+		$stmt->execute();
+
+		if($stmt->rowCount() > 0) {
+			$data = $stmt->fetch();
+			return $data['nome'];
+		} else {
+			return false;
+		}
+	}
 }

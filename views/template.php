@@ -14,12 +14,13 @@
     </head>
     <body>
     	<!-- start navbar -->
+        <?php $user = new Usuarios(); ?>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <a class="navbar-brand" href="<?php echo BASE_URL;?>">Classificados</a>
             <ul class="navbar-nav ml-auto">
                 <?php if(isset($_SESSION['cLogin']) && !empty($_SESSION['cLogin'])): ?> 
                 <!-- Navbar text-->
-                <span class="navbar-text">Óla, Rafael</span>
+                <span class="navbar-text">Olá, <?php echo $user->getNome();?></span>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo BASE_URL;?>anuncios">Meus Anúncios</a>
                 </li>
