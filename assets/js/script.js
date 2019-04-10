@@ -1,52 +1,36 @@
 $(function(){
 
-	/* Carrega dados no modal editar anuncio com ajax */
+	/* Carrega dados no modal do anuncio via ajax */
 	$('.modal_ajax').bind('click', function(e) {
-		//e.preventDefault();
-
-		console.log("ok");
-	});
-	/* 
-	//Exibe texto campo obrigatório no input nome
-	$("#form-register [name=nome]").bind('blur', function(){
-		var teste = $(this).val();
-		if(teste == '') {
-			$(this).css("border", "2px solid red");
-			var labelFor = $("label[for=nome]").html() + "Rafael";
-
-			$("label[for=nome]").append(" <sup style='color:red'>*Campo obrigatório</sup>");
-		}
-	});
-	*/
-	/*
-	$("#area-login alert .close").bind('click', function(){
-		$.ajax({
-			$("#teste").load("http://localhost/cursos/php/poo/mvc/classificados/login/limpasession");
-		});
-	});
-	$("#register2").bind('click', function(e){
+		// Cancela ação do href
 		e.preventDefault();
 
-		var nome = $("#form-register [name=nome]").val();
-		var email = $("#form-register [name=email]").val();
-		var senha = $("#form-register [name=senha]").val();
-		var tel = $("#form-register [name=tel]").val();
+		// pega o valor do atributo data-ajax
+		var data_ajax = $(this).attr('data-ajax');
 
-		
-		var link = $("#form-register").attr('action');
+		// pega o valor do atributo href		
+		var link = $(this).attr('href');
 
+		// Altera o title de acordo com data_ajax
+		if(data_ajax == 'add_anuncio') {
+			var title = "Adicionar Anúncio";
+		}else if(data_ajax == 'edit_anuncio'){
+			var title = "Editar Anúncio";
+		}
+		// Altera o titulo antes de exibir o modal
+		$('.modal .modal-header .modal-title').html(title);
+
+		// Exibe o modal
+		$('.modal').modal('show');
+
+		// Busca os dados via ajax de acordo com link
 		$.ajax({
 			url: link,
-			type: 'POST',
-			success: function() {
-				var novaURL = "http://localhost/cursos/php/poo/mvc/classificados/register/success";
-				$(window.document.location).attr('href', novaURL);
+			type: 'GET',
+			success: function(html){
+				$('.modal .modal-body').html(html);
 			}
-			*/
-			/*error:  function(){
-				var novaURL = "http://localhost/cursos/php/poo/mvc/classificados/register/error";
-				$(window.document.location).attr('href', novaURL);
-			}*/
-		});
-	//});
+		});		
+		
+	});
 });

@@ -8,15 +8,26 @@ class anunciosController extends Controller {
 		$this->verificarSessao();
 
 		$a = new Anuncios();
-		$c = new Categorias();
 
-		$data['anuncios'] = $a->getMeusAnuncios();
-		$data['categorias'] = $c->getCategorias();
+		$data['anuncios'] = $a->getMeusAnuncios();;
 		$this->loadTemplate('anuncios', $data);
 	}
 
-	// Add novo anuncio
 	public function adicionar()
+	{
+		// Verifica se usuário está logado
+		$this->verificarSessao();
+		
+		$c = new Categorias();
+
+
+		$data['categorias'] = $c->getCategorias();
+		$this->loadView('anuncio-adicionar', $data);
+		
+		
+	}
+	// Add novo anuncio
+	public function insert()
 	{
 		// Verifica se usuário está logado
 		$this->verificarSessao();
@@ -34,7 +45,47 @@ class anunciosController extends Controller {
 		}
 	}
 
-	// Exclui anuncio
+	// Carrega informações do anuncio pelo $id
+	public function editar($id = null)
+	{	
+
+		// Verifica se usuário está logado
+		$this->verificarSessao();
+
+		if(!empty($id)) {
+
+			$a = new Anuncios();
+			$c = new Categorias();
+
+			$data['anuncio'] = $a->getAnuncio($id);
+			$data['categorias'] = $c->getCategorias();
+			$this->loadView('anuncio-editar', $data);
+		} else {
+			header("Location: ".BASE_URL."anuncios");
+			exit;
+		}
+	}
+	public function update()
+	{
+		// Verifica se usuário está logado
+		$this->verificarSessao();
+
+		$a = new Anuncios();
+
+		$id = $_POST['id'];
+		$categoria = $_POST['categoria'];
+		$titulo = $_POST['titulo'];
+		$descricao = $_POST['descricao'];
+		$valor = $_POST['valor'];
+		$estado = $_POST['estado'];
+		
+		if($a->editarAnuncios($id, $categoria, $titulo, $descricao, $valor, $estado)) {
+			header("Location: ".BASE_URL."anuncios");
+			exit;
+		}
+	}
+
+	// Exclui anuncio pelo $id
 	public function excluir($id)
 	{
 		// Verifica se usuário está logado
