@@ -59,6 +59,7 @@ abstract class AnunciosImagens extends Model {
 				}
 			}
 		}
+		return true;
 	}
 	/* Busca todas as imagens do Anuncio via id_anuncio */
 	public function getImagensAnuncio($id_anuncio) 
