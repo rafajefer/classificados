@@ -13,6 +13,7 @@ class anunciosController extends Controller {
 		$this->loadTemplate('anuncios', $data);
 	}
 
+	// Carrega os dados do form no modal
 	public function adicionar()
 	{
 		// Verifica se usuário está logado
@@ -20,13 +21,12 @@ class anunciosController extends Controller {
 		
 		$c = new Categorias();
 
-
 		$data['categorias'] = $c->getCategorias();
 		$this->loadView('anuncio-adicionar', $data);
-		
+
 		
 	}
-	// Add novo anuncio
+	// Add novo anuncio no banco de dados
 	public function insert()
 	{
 		// Verifica se usuário está logado
@@ -45,7 +45,7 @@ class anunciosController extends Controller {
 		}
 	}
 
-	// Carrega informações do anuncio pelo $id
+	// Carrega os dados do anuncio no modal
 	public function editar($id = null)
 	{	
 
@@ -59,12 +59,15 @@ class anunciosController extends Controller {
 
 			$data['anuncio'] = $a->getAnuncio($id);
 			$data['categorias'] = $c->getCategorias();
+			$data['fotos'] = $a->getImagensAnuncio($id);
 			$this->loadView('anuncio-editar', $data);
 		} else {
 			header("Location: ".BASE_URL."anuncios");
 			exit;
 		}
 	}
+
+	// Edita anuncio no banco de dados
 	public function update()
 	{
 		// Verifica se usuário está logado
@@ -78,8 +81,13 @@ class anunciosController extends Controller {
 		$descricao = $_POST['descricao'];
 		$valor = $_POST['valor'];
 		$estado = $_POST['estado'];
+		if(isset($_FILES['fotos'])) {
+			$fotos = $_FILES['fotos'];
+		} else {
+			$fotos = array();
+		}
 		
-		if($a->editarAnuncios($id, $categoria, $titulo, $descricao, $valor, $estado)) {
+		if($a->editarAnuncios($id, $categoria, $titulo, $descricao, $valor, $estado, $fotos)) {
 			header("Location: ".BASE_URL."anuncios");
 			exit;
 		}
@@ -96,14 +104,5 @@ class anunciosController extends Controller {
 			header("Location: ".BASE_URL."anuncios");
 			exit;
 		}
-	}
-
-	public function imagem($id) 
-	{
-		$a = new Anuncios();
-		$data['imagens'] = $a->excluirAnunciosImagens($id);
-		echo '<pre>';
-		print_r($data);
-		echo '</pre>';
 	}
 }
