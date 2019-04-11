@@ -50,10 +50,6 @@
 		    <div class="card">
 		  		<div class="card-header">Fotos do Anúncio</div>
 		  		<div class="card-body">
-		  			<?php 
-		  			echo '<pre>d';
-		  			print_r($fotos);
-		  			echo '</pre>'; ?>
 		  			<?php foreach ($fotos as $foto): ?>
 		  					<div class="fotos_item">
 		  						<img src="assets/images/anuncios/<?php echo $foto['filename']; ?>" class="img-thumbnail"><br />

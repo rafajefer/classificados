@@ -32,14 +32,20 @@ class anunciosController extends Controller {
 		// Verifica se usuário está logado
 		$this->verificarSessao();
 
+		$a = new Anuncios();
+
 		$categoria = $_POST['categoria'];
 		$titulo = $_POST['titulo'];
 		$descricao = $_POST['descricao'];
 		$valor = $_POST['valor'];
 		$estado = $_POST['estado'];
+		if(isset($_FILES['fotos'])) {
+			$fotos = $_FILES['fotos'];
+		} else {
+			$fotos = array();
+		}
 
-		$a = new Anuncios();
-		if($a->addAnuncios($categoria, $titulo, $descricao, $valor, $estado)) {
+		if($a->addAnuncios($categoria, $titulo, $descricao, $valor, $estado, $fotos)) {
 			header("Location: ".BASE_URL."anuncios");
 			exit;
 		}
@@ -75,12 +81,15 @@ class anunciosController extends Controller {
 
 		$a = new Anuncios();
 
+		// Recupera os dados do formulário
 		$id = $_POST['id'];
 		$categoria = $_POST['categoria'];
 		$titulo = $_POST['titulo'];
 		$descricao = $_POST['descricao'];
 		$valor = $_POST['valor'];
 		$estado = $_POST['estado'];
+
+		// Verifica se alguma imagem foi enviada
 		if(isset($_FILES['fotos'])) {
 			$fotos = $_FILES['fotos'];
 		} else {
@@ -90,6 +99,8 @@ class anunciosController extends Controller {
 		if($a->editarAnuncios($id, $categoria, $titulo, $descricao, $valor, $estado, $fotos)) {
 			header("Location: ".BASE_URL."anuncios");
 			exit;
+		} else {
+			echo "Erro no envio tente novamente mais tarde!";
 		}
 	}
 

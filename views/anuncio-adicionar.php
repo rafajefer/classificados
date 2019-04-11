@@ -1,4 +1,4 @@
-<form action="<?php echo BASE_URL;?>anuncios/insert" method="POST">
+<form action="<?php echo BASE_URL;?>anuncios/insert" method="POST" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-4">
 			<div class="form-group">
@@ -36,6 +36,12 @@
 			<div class="form-group">
 			    <label for="descricao">Descrição:</label>
 			    <textarea class="form-control" name="descricao" rows="5"></textarea>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="form-group">
+			    <label for="fotos_input">Fotos do anúncio:</label>
+			    <input type="file" class="form-control-file border" name="fotos[]" multiple="multiple" />
 			</div>
 		</div>
 		<div class="col-md-12 text-right">
