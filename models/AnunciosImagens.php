@@ -56,11 +56,6 @@ abstract class AnunciosImagens extends Model {
 					$stmt->bindValue(":url", $tmpname);
 					$stmt->execute();
 
-					if($stmt->rowCount() > 0) {
-						return true;
-					} else {
-						return false;
-					}
 				}
 			}
 		}

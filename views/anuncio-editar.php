@@ -52,7 +52,7 @@
 		  		<div class="card-body">
 		  			<?php foreach ($fotos as $foto): ?>
 		  					<div class="fotos_item">
-		  						<img src="assets/images/anuncios/<?php echo $foto['filename']; ?>" class="img-thumbnail"><br />
+		  						<img src="assets/images/anuncios/<?php echo $foto['filename']; ?>" class="img-thumbnail" width="100"><br />
 		  						<a href="excluir_foto.php?id=<?php echo $foto['id']; ?>" class="btn btn-default btn-sm">Excluir imagem</a>
 		  					</div>
 		  			<?php endforeach; ?>

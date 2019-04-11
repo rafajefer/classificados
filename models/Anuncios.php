@@ -43,15 +43,11 @@ class Anuncios extends AnunciosImagens {
 		$stmt->bindValue(6, $estado);
 		$stmt->execute();
 		if($stmt->rowCount() > 0) {
-			$lastId = $this->db->lastInsertId();
-			echo $lastId."<br />";
-			echo "<pre>";
-			print_r($fotos);
-			echo "</pre>";
+			$lastId = $this->db->lastInsertId();		
 
 			// Add imagem no diretório e no banco de dados
 			if($this->AddImagens($fotos, $lastId)) {
-				return true;
+				return true;					
 			}
 		} 
 		return false;
